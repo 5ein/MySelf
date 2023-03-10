@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 public class 카운트1 extends Thread {
 	

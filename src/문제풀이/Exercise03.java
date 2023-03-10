@@ -1,4 +1,4 @@
-package self;
+package 문제풀이;
 
 public class Exercise03 {
 

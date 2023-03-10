@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

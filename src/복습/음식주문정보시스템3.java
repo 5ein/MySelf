@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 import java.awt.Color;
 import java.awt.FlowLayout;

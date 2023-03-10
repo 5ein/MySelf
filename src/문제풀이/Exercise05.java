@@ -1,4 +1,4 @@
-package self;
+package 문제풀이;
 
 public class Exercise05 { //class Car 표현
 	String model_name;

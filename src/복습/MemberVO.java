@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 public class MemberVO {
 	// MemberVO가방에 넣은 데이터는 Member테이블에 들어갈 예정

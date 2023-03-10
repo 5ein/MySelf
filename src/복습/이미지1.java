@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 public class 이미지1 extends Thread {
 	@Override

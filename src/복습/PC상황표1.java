@@ -1,4 +1,4 @@
-package review;
+package 복습;
 
 public class PC상황표1 {
 
