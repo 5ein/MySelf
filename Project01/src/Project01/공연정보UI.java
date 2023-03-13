@@ -28,7 +28,7 @@ public class 공연정보UI {
 	public static void main(String[] args) {
 		JFrame f = new JFrame();
 		f.setTitle("공연정보");
-		f.setSize(530, 700);
+		f.setSize(530, 600);
 		f.setLayout(new FlowLayout());
 		f.getContentPane().setBackground(Color.LIGHT_GRAY);
 
