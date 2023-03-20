@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h3>get요청(기분)</h3>
+<form action="test.do">
+오늘의 기분은?
+<select name="today">
+	<option value="좋음">좋음</option>
+	<option value="나쁨">나쁨</option>
+	<option value="신남">신남</option>
+	<option value="화남">화남</option>
+	<option value="슬픔">슬픔</option>
+	<option value="평범">평범</option>
+</select>
+<button>오늘의 기분 서버로 전송</button>
+</form>
+<hr color="black">
+<h3>post요청(출입문 암호)</h3>
+<form action="test.do" method="post">
+암호를 입력하세요.
+<input name="pw" value="open">
+<button>암호 서버로 전송</button>
+</form>
+</body>
+</html>
