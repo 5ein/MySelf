@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <style type="text/css">
 input {
 	height: 30px;
@@ -20,7 +21,7 @@ input {
 	text-decoration: inherit;
 }
 
-button {
+.btn {
 	height: 40px;
 	width: 82%;
 	border-radius: 15px;
@@ -49,7 +50,7 @@ button {
 
 .title {
 	color: black;
-	font-weight:bold;
+	font-weight: bold;
 	font-size: 20pt;
 	text-align: center;
 	padding-top: 40px
@@ -59,7 +60,7 @@ button {
 	background: white;
 	width: 50%;
 	margin: auto;
-	height: 500px;
+	height: 450px;
 	-webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
 	-moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
 	box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
@@ -77,6 +78,7 @@ button {
 	margin-left: 10%;
 	text-align: left;
 }
+
 .t2 {
 	font-size: 15px;
 }
@@ -123,6 +125,24 @@ input[type="checkbox"] {
 		width: 60%;
 	}
 }
+
+.btn-social-login {
+	margin-top: 10px;
+	transition: all .2s;
+	outline: 0;
+	border: 1px solid transparent;
+	padding: .4rem !important;
+	border-radius: 50%;
+	color: #fff;
+}
+
+.btn-social-login:focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+}
+
+.text-dark {
+	color: #343a40 !important;
+}
 </style>
 </head>
 <body>
@@ -130,19 +150,27 @@ input[type="checkbox"] {
 		<div class="title">로그인</div>
 		<div id="center">
 			<form>
-				<input type="text" placeholder="  아이디" /> <input type="password"
-					placeholder="  패스워드" />
+				<input type="text" placeholder="  아이디" /> 
+				<input type="password" placeholder="  패스워드" />
 			</form>
 			<div class="t1">
 				<input type="checkbox" name="" id=""> 아이디 저장
 			</div>
-			<button id="loginbutton" type="submit">로그인</button>
-			<button id="insertbutton" type="submit">회원가입</button>
+			<button class="btn" id="loginbutton" type="submit">로그인</button>
+			<button class="btn" id="insertbutton" type="submit">회원가입</button>
 			<div class="t1">
 				<a href="#">아이디 찾기 / 비밀번호 찾기</a>
 			</div>
 			<hr style="color: gray; margin-left: 5%; margin-right: 5%;">
-			<div id="t2"><b>SNS 계정으로 로그인하기</b></div>
+			<div id="t2">
+				<b>SNS 계정으로 로그인하기</b>
+			</div>
+			<div id="logo">
+				<button class='btn-social-login' style='background: #1FC700'><i class="xi-2x xi-naver"></i></button>
+				<button class='btn-social-login' style='background: #FFEB00'><i class="xi-2x xi-kakaotalk text-dark"></i></button>
+				<button class='btn-social-login' style='background: #4267B2'><i class="xi-2x xi-facebook"></i></button>
+				<button class='btn-social-login' style='background: #D93025'><i class="xi-2x xi-google"></i></button>
+			</div>
 		</div>
 	</div>
 </body>
