@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="membership">
+	<!-- insert, delete, update는 무조건 resultType="int"이므로
+		 프로그래머가 써주지 않아도 이미 resultType="int"가 있는 것으로 본다. -->
+		  
+	<insert id="create" parameterType="membershipVO">
+		insert into membership values (null, #{member_id}, #{pw}, #{nickname}, #{email}, #{tel}, #{birthdate}, #{gender})
+	</insert>
+	
+	<delete id="del"  parameterType="String">
+		delete from membership where id = #{id}
+	</delete>
+	
+	<update id="up"  parameterType="membershipVO">
+		update membership set tel = #{tel} where id = #{id}
+	</update>
+	
+	<select id="one" parameterType="String" resultType="membershipVO">
+		select *
+		from membership
+		where id = #{id}
+	</select>
+	
+			<!-- 입력값이 없어서 parameterType 안써줌! -->
+	<select id="all" resultType="membershipVO">
+		select * from membership
+	</select>
+	
+</mapper>

@@ -132,37 +132,37 @@ td {
 	<div class="myform">
 		<div class="title">회원가입</div>
 		<div id="center">
-			<form>
+			<form action="insert_0" method="get">
 				<table>
 					<tr>
 						<td>이메일</td>
-						<td class="t1"><input type="email" /></td>
+						<td class="t1"><input name="email" type="email" /></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>아이디</td>
-						<td class="t1"><input type="text" placeholder=" 4-10자 사이의 영문,숫자" /></td>
+						<td class="t1"><input name="member_id" type="text" placeholder=" 4-10자 사이의 영문,숫자" /></td>
 						<td><button class="checkbtn">중복 확인</button></td>
 					</tr>
 					<tr>
 						<td>닉네임</td>
-						<td class="t1"><input type="text" /></td>
+						<td class="t1"><input name="nickname" type="text" /></td>
 						<td><button class="checkbtn">중복 확인</button></td>
 					</tr>
 					<tr>
 						<td>패스워드</td>
-						<td class="t1"><input type="password" placeholder=" 8자 이상" /></td>
+						<td class="t1"><input name="pw" type="password" placeholder=" 8자 이상" /></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>패스워드 확인</td>
-						<td class="t1"><input type="password" placeholder=" 8자 이상" /></td>
-						<td></td>
+						<td class="t1"><input name="pwCheck" type="password" placeholder=" 8자 이상" /></td>
+						<td><button class="checkbtn">확인</button></td>
 					</tr>
 				</table>
-			</form>
 			<div id="pwcheck"></div>
 			<button id="nextbtn" type="submit">다음</button>
+			</form>
 		</div>
 	</div>
 </body>
