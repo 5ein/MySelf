@@ -1,1 +1,153 @@
 @charset "UTF-8";
+
+.myform {
+	background: white;
+	width: 50%;
+	margin: auto;
+	height: auto;
+	-webkit-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);
+	box-shadow: 0px 0px 3px 1px rgba(38, 35, 128, 1);azimuth: 
+}
+
+.title {
+	color: black;
+	font-weight: bold;
+	font-size: 20pt;
+	text-align: center;
+	padding-top: 40px
+}
+
+#center {
+	width: 90%;
+	margin: 30px auto;
+	text-align: center;
+}
+
+#table1 {
+	width: 98%;
+    margin-left:5%; 
+    margin-right:auto;
+}
+
+#table2 {
+	width: 98%;
+    margin-left:10%; 
+    margin-right:auto;
+}
+
+.input1 {
+	height: 20px;
+	width: 90%;
+	margin: 5px auto;
+	border-radius: 5px;
+	color: black;
+	background: white;
+	padding-left: 5px;
+	font-family: FontAwesome, "Open Sans", Verdana, sans-serif;
+	font-style: normal;
+	font-size: 8px;
+	font-weight: normal;
+	text-decoration: inherit;
+}
+
+input::placeholder {
+	font-style: normal;
+	font-size: 8px;
+}
+
+td {
+	font-size: 10px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.t1{
+	width: 55%; 
+}
+
+.checkbtn {
+	font-size: 3px;
+	border-radius: 15px;
+	height: 25px;
+	background: white;
+}
+
+.sameCheck {
+	height: 15px;
+	margin-left: 5px;
+	text-align: left;
+	font-size: 3px;
+	font-weight: bold;
+	color: red;
+}
+
+#nextbtn {
+	height: 40px;
+	width: 82%;
+	border-radius: 15px;
+	border-color: black;
+	margin: 5px auto;
+	font-family: sans-serif;
+	font-weight: 700;
+	font-size: 10pt;
+	background: black;
+	color: white;
+}
+
+::-webkit-input-placeholder {
+	/* Chrome/Opera/Safari */
+	color: #cccccc;
+}
+
+::-moz-placeholder {
+	/* Firefox 19+ */
+	color: #cccccc;
+}
+
+:-ms-input-placeholder {
+	/* IE 10+ */
+	color: #cccccc;
+}
+
+:-moz-placeholder {
+	/* Firefox 18- */
+	color: #cccccc;
+}
+
+@media screen and (max-width:500px) {
+	.myform {
+		width: 80%;
+	}
+}
+
+@media screen and (max-width:800px) {
+	.myform {
+		width: 60%;
+	}
+}
+
+.text {
+	width:90%;
+    height: 90px; border: 1px solid black; background-color: white;
+    white-space: pre-line; overflow-y: scroll; margin: 0 auto 10px;
+    font-size: 10px;
+}
+#assentCheck {
+	font-size: 10px;
+	margin-right: 10%;
+	text-align: right;
+}
+input[type="checkbox"] {
+	width: 15px;
+	height: 15px;
+	vertical-align: -3px;
+}
+
+input[type="radio"]{
+	vertical-align: -3px;
+}
+
+select{
+ font-size: 5px;
+}
