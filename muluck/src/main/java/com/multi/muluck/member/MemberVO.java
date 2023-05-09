@@ -1,6 +1,7 @@
 package com.multi.muluck.member;
 
 public class MemberVO {
+	
 	private int member_no;
 	private String member_id;
 	private String member_pw;

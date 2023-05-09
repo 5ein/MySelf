@@ -7,15 +7,12 @@
 	<typeAliases>
 		<typeAlias type="com.multi.muluck.member.MemberVO"
 			alias="memberVO"></typeAlias>
-		<typeAlias type="com.multi.muluck.diary.DiaryVO"
-			alias="diaryVO"></typeAlias>
 		<typeAlias type="com.multi.muluck.follow.FollowVO"
 			alias="followVO"></typeAlias>
 	</typeAliases>
 	<mappers>
 		<!-- SQL문 정의하는 파일들의 목록을 지정. (테이블당 한개 사용) -->
 		<mapper resource="mapper/memberMapper.xml" />
-		<mapper resource="mapper/diaryMapper.xml" />
 		<mapper resource="mapper/followMapper.xml" />
 	</mappers>
 </configuration>

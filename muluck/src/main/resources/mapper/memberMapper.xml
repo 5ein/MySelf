@@ -5,7 +5,9 @@
 		 프로그래머가 써주지 않아도 이미 resultType="int"가 있는 것으로 본다. -->
 		 
 	<insert id="create" parameterType="memberVO">
-		insert into member values (#{member_no}, #{member_id}, #{member_pw}, #{member_email}, #{member_name}, #{member_tel}, #{member_nickname}, #{member_img}, #{member_gender}, #{member_ageRange)
+		insert into member values (#{member_no}, #{member_id}, #{member_pw}, 
+		#{member_email}, #{member_name}, #{member_tel}, #{member_nickname}, 
+		#{member_img}, #{member_gender}, #{member_ageRange})
 	</insert>
 	
 	<delete id="del"  parameterType="String">
@@ -13,15 +15,16 @@
 	</delete>
 	
 	<update id="up"  parameterType="memberVO">
-		update member set member_nickname = #{member_nickname}, member_img = #{member_img}, member_pw = #{member_pw}, member_email = #{member_email}, 
-						member_name = #{member_name}, member_tel = #{member_tel}, member_gender = #{member_gender}, member_ageRange = #{member_ageRange} 
+		update member set member_pw = #{member_pw}, member_email = #{member_email}, 
+		member_name = #{member_name}, member_tel = #{member_tel}, member_nickname = #{member_nickname}, 
+		member_img = #{member_img}, member_gender = #{member_gender}, member_ageRange = #{member_ageRange} 
 		where member_id = #{member_id}
 	</update>
 	
 	<select id="one" parameterType="String" resultType="memberVO">
 		select *
 		from member
-		where id = #{id}
+		where member = #{member_id}
 	</select>
 	
 			<!-- 입력값이 없어서 parameterType 안써줌! -->
