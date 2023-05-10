@@ -13,7 +13,7 @@ public class MemberController {
 	@Autowired 
 	MemberDAO dao;
 
-	@RequestMapping("insert")
+	@RequestMapping("member/insert")
 	public void insert(MemberVO bag) {
 		System.out.println(bag);
 		dao.insert(bag);

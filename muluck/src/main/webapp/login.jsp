@@ -11,7 +11,7 @@
 <body>
 	<div class="muluck_logo"><img src="resources/assets/img/muluck_logo_little.png" alt="로고"></div>
 	<div class="myform">
-		<div class="title">로그인</div>
+		<div id="login" class="title">로그인</div>
 		<div class="center">
 			<form>
 				<input class="input_login" placeholder="  아이디" /> 
