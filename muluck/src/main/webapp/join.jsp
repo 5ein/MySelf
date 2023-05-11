@@ -102,7 +102,7 @@
 				<div id="assentCheck">
 					<input type="checkbox" name="" id=""> 약관에 동의합니다
 				</div>
-			<button class="btn black_btn" type="submit">다음</button>
+			<button class="btn black_btn" type="submit">회원가입</button>
 			</form>
 		</div>
 	</div>

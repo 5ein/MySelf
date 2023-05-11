@@ -5,9 +5,7 @@
 		 프로그래머가 써주지 않아도 이미 resultType="int"가 있는 것으로 본다. -->
 		 
 	<insert id="create" parameterType="memberVO">
-		insert into member values (null, #{member_id}, #{member_pw}, 
-		#{member_email}, #{member_name}, #{member_tel}, #{member_nickname}, 
-		#{member_img}, #{member_gender}, #{member_ageRange})
+		insert into member values (null, #{member_id}, #{member_pw}, #{member_email}, #{member_name}, #{member_tel}, #{member_nickname}, null, #{member_gender}, #{member_ageRange})
 	</insert>
 	
 	<delete id="del"  parameterType="String">

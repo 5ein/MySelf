@@ -13,10 +13,11 @@ public class MemberController {
 	@Autowired 
 	MemberDAO dao;
 
-	@RequestMapping("member/insert")
-	public void insert(MemberVO bag) {
+	@RequestMapping("insert")
+	public String insert(MemberVO bag) {
 		System.out.println(bag);
 		dao.insert(bag);
+		return "member/insert";
 	}
 	
 	@RequestMapping("delete")
