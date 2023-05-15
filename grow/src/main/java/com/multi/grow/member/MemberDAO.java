@@ -41,4 +41,9 @@ public class MemberDAO {
 		return list;
 	}
 	
+	public int idCheck(String id) {
+	       
+        return my.selectOne(".idCheck", id);
+    }
+	
 }

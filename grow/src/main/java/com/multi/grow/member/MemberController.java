@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MemberController {
@@ -45,6 +46,18 @@ public class MemberController {
 		List<MemberVO> list = dao.list(); 
 		model.addAttribute("list", list);
 	}
+	
+	@RequestMapping("member/idCheck.do")
+    //@ResponseBody ajax 값을 바로jsp 로 보내기위해 사용
+    public String idCheck(@RequestParam("member_id") String id) {
+        String result="N";
+        
+        int flag = AjaxService.idCheck(id);
+        
+        if(flag == 1) result ="Y"; 
+        //아이디가 있을시 Y 없을시 N 으로jsp view 로 보냄
+        return result;
+    }
 	
 }
 

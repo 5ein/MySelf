@@ -8,6 +8,33 @@
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <link rel="stylesheet" type="text/css" href="../resources/css/login_join.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#idCheck').click(function() {
+			$('#idCheckResult').empty()
+			let member_id = $("#member_id").val();
+			$.ajax({
+				type:'poet', //post형식으로 controller에 보내기
+				url:"idCheck.do",
+				data:{"member_id": member_id},
+				success: function(data) {
+					if(data == "N"){ //만약 성공할시
+						result = "사용가능한 아이디 입니다.";
+						$("#result_idCheck").html(result).css("color", "green");
+						$("#member_pw").trigger("focus");
+					} else { //만약 실패할시
+						result = "이미 사용중인 아이디입니다.";
+						$("#result_idCheck").html(result).css("color", "red");
+						$("#member_id").val("").trigger("focus");
+					} //else
+				},
+				error: function(error) {alert(error);}
+			});//ajax
+		});//click
+	})//function
+
+</script>
 </head>
 <body>
 	<div class="muluck_logo"><img src="../resources/assets/img/muluck_logo_little.png" alt="로고"></div>
@@ -22,9 +49,12 @@
 						<td><button class="checkbtn"  type="button">인증</button></td>
 					</tr>
 					<tr>
-						<td><input class="input_join" name="member_id" type="text" placeholder=" 아이디" /></td>
+						<td><input class="input_join" id="member_id" name="member_id" type="text" placeholder=" 아이디"/></td>
 						<!-- placeholder=" 4-10자 사이의 영문,숫자" -->
-						<td><button class="checkbtn"  type="button">중복 확인</button></td>
+						<td><button class="checkbtn"  id="idCheck" type="button">중복 확인</button></td>
+					</tr>
+					<tr>
+						<td colspan="2"><div id="result_idCheck" style="font-size: 12px;"></div> </td>
 					</tr>
 					<tr>
 						<td><input class="input_join" name="member_pw" type="password" placeholder=" 패스워드" /></td>
