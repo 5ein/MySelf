@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="business">
+
+	<insert id="create" parameterType="businessVO">
+		insert into business (b_title, b_date, b_write, b_image , b_place, member_no, b_share)
+		values
+		(#{b_title}, SYSDATE(), #{b_write}, #{b_image},#{b_place},2,#{b_share})
+			
+	</insert>
+	
+	<select id="one" parameterType="businessVO" resultType="businessVO">
+		select * from
+		business where b_title = #{b_title}
+	</select>
+	
+	<select id="list" resultType="businessVO">
+		select * from (
+		select ROW_NUMBER() over(order by b_date desc) as b_no1, b.* 
+		from business b) business2 where busniess2.b_no between 10 and 15
+	</select>
+	
+	<select id="count" resultType="Integer">
+		select count(*) from business
+	</select>
+</mapper>
