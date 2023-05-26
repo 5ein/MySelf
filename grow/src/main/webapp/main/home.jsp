@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -72,33 +72,24 @@ div {
 				<ul class="navbar-nav mx-auto">
 					<li class="nav-item px-lg-4"><a
 						class="nav-link text-uppercase" href="../main/home.jsp">홈</a></li>
-					<ul class="navbar-nav px-lg-4">
-						<li class="nav-item px-lg-4"><a
-						class="nav-link text-uppercase" href="#">커뮤니티</a></li>
-					</ul>
+					<li class="nav-item px-lg-4"><a
+						class="nav-link text-uppercase" href="../community/community.jsp">커뮤니티</a></li>
 					<ul class="navbar-nav px-lg-4">
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="myplant.jsp" role="button"
 							data-bs-toggle="dropdown" aria-expanded="false"> 나의 식물 </a>
 							<ul class="dropdown-menu dropdown-menu-dark">
-								<li><a class="dropdown-item" href="#">식물 일지</a></li>
-								<li><a class="dropdown-item" href="../card/list">반려식물 등록증</a></li>
+								<li><a class="dropdown-item" href="../diary/cardview.jsp">식물 일지</a></li>
+								<li><a class="dropdown-item" href="../card/card_main.jsp">반려식물 등록증</a></li>
 								<li><a class="dropdown-item" href="#">MMTI 테스트</a></li>
 							</ul></li>
 					</ul>
-					<ul class="navbar-nav px-lg-4">
-						<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="myplant.jsp" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> 상점 </a>
-							<ul class="dropdown-menu dropdown-menu-dark">
-								<li><a class="dropdown-item" href="#">나눔</a></li>
-								<li><a class="dropdown-item" href="#">거래</a></li>
-							</ul></li>
-					</ul>
+					<li class="nav-item px-lg-4"><a
+						class="nav-link text-uppercase" href="../business/business_main.jsp">상점</a></li>
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> 
         <section class="page-section clearfix">
             <div class="container">
                 <div class="intro">
