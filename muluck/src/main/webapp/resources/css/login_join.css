@@ -4,8 +4,8 @@
 }
 
 .muluck_logo > img {
-	width: 90px;
-	height: 80px;
+	width: 200px;
+	height: 200px;
 }
 
 .go_login {
@@ -22,7 +22,7 @@
 .go_login button:hover {
   box-shadow: 0px 0px 5px #888;
 }
-	
+
 body{
 	background: #F2F1DF;
 }
@@ -54,13 +54,13 @@ body{
 	padding-top: 10px;
 }
 
-#login {
+#login_title {
 	padding-top: 20px;
 }
 
 .center {
 	width: 90%;
-	margin: 30px auto;
+	margin: 15px auto;
 	text-align: center;
 }
 
@@ -114,11 +114,11 @@ input::placeholder {
 td {
 	font-size: 10px;
 	font-weight: bold;
-	text-align: left;
+ 	text-align: center;
 }
 
 #table1 tr{
-	height: 36px;
+	height: auto;
 }
 
 .text1 {
@@ -142,12 +142,14 @@ td {
 }
 
 .sameCheck {
-	height: 10px;
+	height: auto;
 	margin-left: 5px;
 	text-align: left;
 	font-size: 3px;
 	font-weight: bold;
-	color: red;
+}
+#loginResult {
+	text-align: center;
 }
 
 .btn {
@@ -210,41 +212,42 @@ td {
     font-size: 9px;
 }
 #assentCheck {
-	font-size: 10px;
+	font-size: 9px;
 	margin-right: 10%;
 	text-align: right;
 }
 input[type="checkbox"] {
-	width: 15px;
-	height: 15px;
+	width: 12px;
+	height: 12px;
 	vertical-align: -3px;
 }
 
-input[type="radio"]{
-	vertical-align: -3px;
+.solo{
+	width:200px;
 }
 
-
-select{
- font-size: 5px;
+.notsolo{
+	width: 150;
 }
 
 /* SNS로그인 */
 #logo {
 	padding-bottom: 10px;
+	margin-top: 20px;
 }
-.btn-social-login {
-	margin-top: 10px;
-	transition: all .2s;
-	outline: 0;
-	border: 1px solid transparent;
-	padding: .4rem !important;
-	border-radius: 50%;
-	color: #fff;
+
+
+#idpwTable {
+	margin: auto;
+	margin-bottom: 10px;
 }
-.btn-social-login:focus {
-	box-shadow: 0 0 0 .2rem rgba(0, 123, 255, .25);
+
+#go_login {
+	margin-top: 20px;
+	box-shadow: 0px 0px 1px 1px rgba(38, 35, 128, 1);;
 }
-.text-dark {
-	color: #343a40 !important;
+
+.cBc.active {
+	background-color: black;
+	color: white;
 }
