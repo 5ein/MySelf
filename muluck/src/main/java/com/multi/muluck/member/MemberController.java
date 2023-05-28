@@ -176,7 +176,7 @@ public class MemberController {
 	}
 	 
 	//회원 탈퇴
-	 @RequestMapping("member/drop") 
+	 @RequestMapping(value = "member/drop", method = RequestMethod.POST) 
 	 public String drop(int member_no, HttpSession session, RedirectAttributes redirectAttributes) {
 		System.out.println("회원no입니다" + member_no); 
 		dao.drop(member_no); 
@@ -184,7 +184,7 @@ public class MemberController {
 		
 		 // 알림 메시지를 모델에 추가하여 JSP로 전달
 		 redirectAttributes.addFlashAttribute("message", "회원탈퇴 처리가 완료되었습니다.");    
-		 return "forward:/member/login";
+		 return "redirect:/member/login.jsp";
 	 }
 	 
 

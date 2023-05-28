@@ -13,12 +13,6 @@
 <link rel="stylesheet" type="text/css" href="../resources/css/login_join.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<%-- 회원탈퇴 처리 메시지 표시 --%>
-<% if (request.getAttribute("message") != null) { %>
-  <script>
-    alert("<%= request.getAttribute("message") %>");
-  </script>
-<% } %>
 <script type="text/javascript">
 $(function() {
 	// 페이지 로드 시 아이디 저장 체크 박스 상태 확인
@@ -80,10 +74,21 @@ $(function() {
 	});
 
 });
-
-
-
 </script>
+<%-- 회원탈퇴 처리 메시지 표시 --%>
+<% if (request.getAttribute("message") != null) { %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      alert("<%= request.getAttribute("message") %>");
+      console.log("알림창이 표시되었습니다.");
+    });
+  </script>
+<% } else { %>
+  <script type="text/javascript">
+    console.log("알림창이 표시되지 않았습니다.");
+  </script>
+<% } %>
+
 <!-- <style>
 #naver_id_login {
 	display: inline-block;
