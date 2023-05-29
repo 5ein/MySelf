@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -182,8 +181,6 @@ public class MemberController {
 		dao.drop(member_no); 
 		session.invalidate();
 		
-		 // 알림 메시지를 모델에 추가하여 JSP로 전달
-		 redirectAttributes.addFlashAttribute("message", "회원탈퇴 처리가 완료되었습니다.");    
 		 return "redirect:/member/login.jsp";
 	 }
 	 
