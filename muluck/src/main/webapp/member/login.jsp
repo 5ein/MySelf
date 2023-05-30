@@ -14,7 +14,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
-
 <script type="text/javascript">
 $(function() {
 	// 페이지 로드 시 아이디 저장 체크 박스 상태 확인
@@ -80,15 +79,7 @@ $(function() {
 
 
 </script>
-<!-- <style>
-#naver_id_login {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	overflow: hidden;
-}
-</style> -->
+
 </head>
 <body>
 	<div class="muluck_logo"><a href="login.jsp"><img src="../resources/assets/img/무우럭.png" alt="로고"></a></div>

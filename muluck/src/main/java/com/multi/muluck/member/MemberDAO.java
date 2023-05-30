@@ -68,7 +68,7 @@ public class MemberDAO {
 	
 	//네이버 회원가입
 	public int naverInsert(MemberVO bag) {
-		int result = my.insert("member.create", bag);
+		int result = my.insert("member.createN", bag);
 		return result;
 	}
 	
@@ -122,6 +122,12 @@ public class MemberDAO {
 	//회원탈퇴
 	public void drop(int member_no) {
 		my.delete("member.drop", member_no);
+	}
+	
+	//전화번호 중복체크
+	public int telCheck(String member_tel) {
+		int result = my.selectOne("member.telCheck", member_tel);
+		return result;
 	}
 	
 }

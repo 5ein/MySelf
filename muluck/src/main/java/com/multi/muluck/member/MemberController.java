@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,9 @@ public class MemberController {
 
 	@Autowired
 	MemberDAO dao;
+	
+	@Autowired
+	MemberService memberService;
 	
 	//회원가입
 	@RequestMapping("member/join")
@@ -53,6 +57,7 @@ public class MemberController {
 	// 네이버 로그인 (회원가입)
 	@RequestMapping("member/naverLogin")
 	public String naverLogin(MemberVO bag, HttpSession session) {
+		System.out.println("bag :"+bag);
 		MemberVO result = dao.naverIdCheck(bag.getMember_id());
 		if (result != null) {
 			session.setAttribute("member_no", result.getMember_no());
@@ -212,5 +217,44 @@ public class MemberController {
 	 * 		model.addAttribute("list", list);
 	 * }
 	 */
+	 
+	 
+	 //전화번호 인증
+	 @PostMapping("member/phoneAuth")
+	 @ResponseBody
+	 public Boolean phoneAuth(String tel, HttpSession session) {
+
+		 String member_tel = tel;
+	     try { // 이미 가입된 전화번호가 있으면
+	         if(MemberService.memberTelCount(member_tel) > 0) 
+	             return false; 
+	     } catch (Exception e) {
+	         e.printStackTrace();
+	     }
+	     
+	     String code = memberService.sendRandomMessage(tel);
+	     session.setAttribute("rand", code);
+	     
+	     return true;
+	 }
+
+	 @PostMapping("member/phoneAuthOk")
+	 @ResponseBody
+	 public Boolean phoneAuthOk(HttpSession session, HttpServletRequest request) {
+	     String rand = (String) session.getAttribute("rand");
+	     String code = (String) request.getParameter("code");
+
+	     System.out.println(rand + " : " + code);
+
+	     if (rand.equals(code)) {
+	         session.removeAttribute("rand");
+	         return true;
+	     } 
+
+	     return false;
+	 }
+	 
+	 
+	 
 
 }
