@@ -4,15 +4,14 @@
 
 CREATE TABLE `card` (
   `card_no` int NOT NULL AUTO_INCREMENT,
-  `card_id` int NOT NULL COMMENT '반려식물 고유 아이디',
-  `card_name` varchar(100) NOT NULL COMMENT '반려식물명',
-  `card_type` varchar(100) NOT NULL COMMENT '반려식물 종',
-  `card_birth` varchar(100) NOT NULL COMMENT '반려일',
-  `card_mmti` varchar(100) NOT NULL COMMENT 'Muluck-Muluck Type Indicator',
-  `card_img` varchar(100) NOT NULL,
-  `card_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '등록증 발급일',
+  `card_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '식물 이름',
+  `card_species` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '종',
+  `card_birth` date NOT NULL COMMENT '반려일',
+  `card_mmti` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '식물 성향',
+  `card_img` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '사진 첨부',
+  `card_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '발급일',
   PRIMARY KEY (`card_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.community definition
