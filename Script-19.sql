@@ -1,6 +1,6 @@
 -- 무럭 DDL 생성 코드 --
 
--- muluck.card definition
+-- multi.card definition
 
 CREATE TABLE `card` (
   `card_no` int NOT NULL AUTO_INCREMENT,
@@ -11,7 +11,7 @@ CREATE TABLE `card` (
   `card_img` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '사진 첨부',
   `card_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '발급일',
   PRIMARY KEY (`card_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.community definition
@@ -92,16 +92,13 @@ CREATE TABLE `business` (
 
 CREATE TABLE `calendar` (
   `member_no` int DEFAULT NULL,
-  `calendar_id` int NOT NULL,
-  `year` varchar(100) DEFAULT NULL,
-  `month` varchar(100) DEFAULT NULL,
-  `day` varchar(100) DEFAULT NULL,
-  `c_mood` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  PRIMARY KEY (`calendar_id`),
-  KEY `calendar_FK` (`member_no`),
-  CONSTRAINT `calendar_FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
+  `calendar_id` int DEFAULT NULL,
+  `calendar_start` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `calendar_end` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `calendar_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `calendar__mood` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 -- muluck.diary definition
 
