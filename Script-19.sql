@@ -100,24 +100,24 @@ CREATE TABLE `calendar` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- muluck.diary definition
+-- plant.diary definition
 
 CREATE TABLE `diary` (
-  `D_img` varchar(300) DEFAULT NULL,
-  `D_title` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `D_contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `D_mood` varchar(100) DEFAULT NULL,
-  `D_date` datetime NOT NULL,
-  `D_no` int NOT NULL AUTO_INCREMENT,
-  `member_no` int NOT NULL,
-  `card_no` int NOT NULL,
-  PRIMARY KEY (`D_no`),
+  `diary_no` int NOT NULL AUTO_INCREMENT,
+  `diary_img` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `diary_nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `diary_title` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `diary_contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `diary_mood` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `diary_date` datetime NOT NULL,
+  `member_no` int DEFAULT NULL,
+  `card_no` int DEFAULT NULL,
+  PRIMARY KEY (`diary_no`),
   KEY `diary_FK` (`member_no`),
   KEY `diary_FK_1` (`card_no`),
   CONSTRAINT `diary_FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`),
   CONSTRAINT `diary_FK_1` FOREIGN KEY (`card_no`) REFERENCES `card` (`card_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- muluck.follow definition
 
