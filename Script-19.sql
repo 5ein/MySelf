@@ -28,17 +28,18 @@ CREATE TABLE `community` (
 CREATE TABLE `member` (
   `member_no` int NOT NULL AUTO_INCREMENT,
   `member_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `member_pw` varchar(100) NOT NULL,
+  `member_pw` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `member_email` varchar(100) NOT NULL,
-  `member_name` varchar(100) NOT NULL,
-  `member_tel` int NOT NULL,
+  `member_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'sns로그인회원',
+  `member_tel` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'sns로그인회원',
   `member_nickname` varchar(100) NOT NULL,
-  `member_img` varchar(100) DEFAULT NULL,
-  `member_gender` varchar(100) DEFAULT NULL,
-  `member_ageRange` varchar(100) DEFAULT NULL,
+  `member_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'myprofile.png',
+  `member_gender` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'U',
+  `member_birthyear` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `member_manager` int DEFAULT NULL,
   PRIMARY KEY (`member_no`),
   UNIQUE KEY `member_un` (`member_id`,`member_email`,`member_tel`,`member_nickname`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.bbs definition
