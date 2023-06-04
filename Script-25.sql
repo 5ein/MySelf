@@ -1,1 +1,0 @@
-alter table member  auto_increment= 1;
