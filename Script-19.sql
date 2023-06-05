@@ -76,17 +76,19 @@ CREATE TABLE `bookmark` (
 -- muluck.business definition
 
 CREATE TABLE `business` (
-  `b_no` int NOT NULL AUTO_INCREMENT COMMENT '게시판 번호',
-  `b_title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '게시글제목',
-  `b_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '게시한 시간',
-  `b_write` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '작성한 글',
-  `b_image` varchar(200) DEFAULT NULL COMMENT '거래 장소',
+  `business_no` int NOT NULL AUTO_INCREMENT COMMENT '게시판 번호',
+  `business_title` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '게시글제목',
+  `business_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '게시한 시간',
+  `business_write` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '작성한 글',
+  `business_image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '이미지',
+  `business_place` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '거래장소',
   `member_no` int NOT NULL COMMENT 'member테이블의 id',
-  `b_choose` tinyint(1) DEFAULT NULL COMMENT '예약중?',
-  PRIMARY KEY (`b_no`),
+  `business_choose` tinyint(1) DEFAULT NULL COMMENT '예약중 표기',
+  `business_share` tinyint(1) NOT NULL COMMENT '나눔,거래?',
+  PRIMARY KEY (`business_no`),
   KEY `business_FK` (`member_no`),
   CONSTRAINT `business_FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.calendar definition
@@ -162,22 +164,3 @@ CREATE TABLE `reply` (
   CONSTRAINT `reply_FK_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
--- muluck.memberactivity definition
-
-CREATE TABLE `memberactivity` (
-  `activity_no` int NOT NULL AUTO_INCREMENT,
-  `bbs_no` int DEFAULT NULL,
-  `reply_no` int DEFAULT NULL,
-  `heart_no` int DEFAULT NULL,
-  `bookmark_no` int DEFAULT NULL,
-  PRIMARY KEY (`activity_no`),
-  KEY `memberactivity_FK_1` (`reply_no`),
-  KEY `memberactivity_FK_2` (`heart_no`),
-  KEY `memberactivity_FK` (`bbs_no`),
-  KEY `memberactivity_FK_3` (`bookmark_no`),
-  CONSTRAINT `memberactivity_FK` FOREIGN KEY (`bbs_no`) REFERENCES `bbs` (`bbs_no`),
-  CONSTRAINT `memberactivity_FK_1` FOREIGN KEY (`reply_no`) REFERENCES `reply` (`reply_no`),
-  CONSTRAINT `memberactivity_FK_2` FOREIGN KEY (`heart_no`) REFERENCES `heart` (`heart_no`),
-  CONSTRAINT `memberactivity_FK_3` FOREIGN KEY (`bookmark_no`) REFERENCES `bookmark` (`bookmark_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
