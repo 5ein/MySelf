@@ -48,3 +48,26 @@ JOIN bbs ON bookmark.bbs_no = bbs.bbs_no
 JOIN community ON bbs.community_no = community.community_no
 WHERE bookmark.member_no = 1;
 
+-- 팔로워 리스트 가져오기
+SELECT f.follow_no, f.following_user, f.follower_user, m.member_img, m.member_nickname, m.member_id
+FROM follow f
+JOIN member m ON f.follower_user = m.member_no
+WHERE f.following_user = 1;
+
+-- 팔로잉 리스트 가져오기
+SELECT f.follow_no, f.following_user, f.follower_user, m.member_img, m.member_nickname, m.member_id
+FROM follow f
+JOIN member m ON f.following_user = m.member_no
+WHERE f.follower_user = 1;
+
+-- 나를 팔로우 한사람:: (팔로워) 수 구하기
+SELECT COUNT(*) AS count
+FROM follow
+WHERE following_user = 1;
+
+-- 내가 팔로우 한사람:: (팔로잉) 수 구하기
+SELECT COUNT(*) AS count
+FROM follow
+WHERE follower_user = 1;
+
+
