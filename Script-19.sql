@@ -1,6 +1,4 @@
--- 무럭 DDL 생성 코드 --
-
--- multi.card definition
+-- muluck.card definition
 
 CREATE TABLE `card` (
   `card_no` int NOT NULL AUTO_INCREMENT,
@@ -11,16 +9,27 @@ CREATE TABLE `card` (
   `card_img` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '사진 첨부',
   `card_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '발급일',
   PRIMARY KEY (`card_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.community definition
 
 CREATE TABLE `community` (
   `community_no` int NOT NULL,
-  `community_category` varchar(200) NOT NULL,
+  `community_category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`community_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- muluck.follow definition
+
+CREATE TABLE `follow` (
+  `follow_no` int NOT NULL AUTO_INCREMENT,
+  `follower_user` int NOT NULL,
+  `following_user` int NOT NULL,
+  `follow_date` date DEFAULT NULL,
+  PRIMARY KEY (`follow_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.`member` definition
@@ -39,38 +48,38 @@ CREATE TABLE `member` (
   `member_manager` int DEFAULT NULL,
   PRIMARY KEY (`member_no`),
   UNIQUE KEY `member_un` (`member_id`,`member_email`,`member_tel`,`member_nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.bbs definition
 
 CREATE TABLE `bbs` (
   `bbs_no` int NOT NULL AUTO_INCREMENT,
-  `bbs_title` varchar(200) NOT NULL,
+  `bbs_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `bbs_content` text NOT NULL,
-  `bbs_img` varchar(200) DEFAULT NULL,
-  `member_no` int NOT NULL,
+  `bbs_img` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `community_no` int NOT NULL,
+  `member_no` int NOT NULL,
   PRIMARY KEY (`bbs_no`),
   KEY `bbs_FK` (`community_no`),
-  KEY `bbs_FK1` (`member_no`),
+  KEY `bbs_FK_1` (`member_no`),
   CONSTRAINT `bbs_FK` FOREIGN KEY (`community_no`) REFERENCES `community` (`community_no`),
-  CONSTRAINT `bbs_FK1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `bbs_FK_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.bookmark definition
 
 CREATE TABLE `bookmark` (
   `bookmark_no` int NOT NULL AUTO_INCREMENT,
-  `member_no` int NOT NULL,
   `bbs_no` int NOT NULL,
+  `member_no` int NOT NULL,
   PRIMARY KEY (`bookmark_no`),
   KEY `bookmark_FK` (`bbs_no`),
   KEY `bookmark_FK_1` (`member_no`),
   CONSTRAINT `bookmark_FK` FOREIGN KEY (`bbs_no`) REFERENCES `bbs` (`bbs_no`),
   CONSTRAINT `bookmark_FK_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.business definition
@@ -94,21 +103,25 @@ CREATE TABLE `business` (
 -- muluck.calendar definition
 
 CREATE TABLE `calendar` (
-  `member_no` int DEFAULT NULL,
-  `calendar_id` int DEFAULT NULL,
+  `member_no` int NOT NULL,
+  `calendar_id` int NOT NULL AUTO_INCREMENT,
   `calendar_start` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `calendar_end` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `calendar_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `calendar__mood` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`calendar_id`),
+  KEY `calendar_FK` (`member_no`),
+  CONSTRAINT `calendar_FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- plant.diary definition
+
+-- muluck.diary definition
 
 CREATE TABLE `diary` (
   `diary_no` int NOT NULL AUTO_INCREMENT,
   `diary_img` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `diary_nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `diary_nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `diary_title` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `diary_contents` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `diary_mood` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -122,45 +135,31 @@ CREATE TABLE `diary` (
   CONSTRAINT `diary_FK_1` FOREIGN KEY (`card_no`) REFERENCES `card` (`card_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- muluck.follow definition
-
-CREATE TABLE `follow` (
-  `follow_no` int NOT NULL AUTO_INCREMENT,
-  `follower_id` varchar(200) NOT NULL,
-  `following_id` varchar(200) NOT NULL,
-  `follow_management` tinyint(1) NOT NULL,
-  `member_no` int NOT NULL,
-  PRIMARY KEY (`follow_no`),
-  KEY `follow_FK` (`member_no`),
-  CONSTRAINT `follow_FK` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 
 -- muluck.heart definition
 
 CREATE TABLE `heart` (
   `heart_no` int NOT NULL AUTO_INCREMENT,
-  `member_no` int NOT NULL,
   `bbs_no` int NOT NULL,
+  `member_no` int NOT NULL,
   PRIMARY KEY (`heart_no`),
   KEY `heart_FK` (`bbs_no`),
   KEY `heart_FK_1` (`member_no`),
   CONSTRAINT `heart_FK` FOREIGN KEY (`bbs_no`) REFERENCES `bbs` (`bbs_no`),
   CONSTRAINT `heart_FK_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- muluck.reply definition
 
 CREATE TABLE `reply` (
   `reply_no` int NOT NULL AUTO_INCREMENT,
-  `reply_content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `member_no` int NOT NULL,
+  `reply_content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `bbs_no` int NOT NULL,
+  `member_no` int NOT NULL,
   PRIMARY KEY (`reply_no`),
   KEY `reply_FK` (`bbs_no`),
   KEY `reply_FK_1` (`member_no`),
   CONSTRAINT `reply_FK` FOREIGN KEY (`bbs_no`) REFERENCES `bbs` (`bbs_no`),
   CONSTRAINT `reply_FK_1` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
