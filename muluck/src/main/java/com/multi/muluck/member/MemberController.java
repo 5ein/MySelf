@@ -1,16 +1,23 @@
 package com.multi.muluck.member;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,12 +35,42 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
+	@Autowired
+	JavaMailSender mailSender;
+
 	//회원가입
 	@RequestMapping("member/join")
-	public void join(MemberVO bag) {
+	public String join(MemberVO bag) {
 		System.out.println(bag);
-		dao.join(bag);
-//		return "member/join";
+		int result = dao.join(bag);
+		
+		if (result != 0) {
+			//이메일 전송
+			String setFrom = "hhhj0525@gmail.com"; //보내는 이메일
+			String toMail = bag.getMember_email(); //받는 사람 이메일
+			String title = "[무우럭] 회원가입을 축하드립니다.";
+			String content = 
+					"<h4>WELCOME! to Muluck 🌱</h4><br><b>" +
+							bag.getMember_name() + "</b>님(" + bag.getMember_email() + ") <br>" +		
+							"<b>무우럭</b> 플랫폼 회원으로 등록해주셔서 감사드립니다.<br>" +
+							"진심으로 환영합니다.🌱";
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content,true);
+				mailSender.send(message);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return "member/join";
+		}else {
+			return "redirect:/join.jsp?error=true";
+		}
 	}
 	
 	//로그인
@@ -53,6 +90,13 @@ public class MemberController {
 			return false;
 		}
     }
+	
+	//로그아웃
+	@RequestMapping("member/logout")
+	public String logout(HttpSession session) {
+	    session.invalidate();
+	    return "../../member/login";
+	}
 	
 	// 네이버 로그인 (회원가입)
 	@RequestMapping("member/naverLogin")
@@ -75,13 +119,52 @@ public class MemberController {
 		}
 	}
 	
-	//로그아웃
-	@RequestMapping("member/logout")
-	public String logout(HttpSession session) {
-	    session.invalidate();
-	    return "../../member/login";
+	// 카카오 로그인
+	@RequestMapping(value = "member/kakaoLogin", method = RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session)
+			throws Exception {
+		System.out.println("#########" + code);
+	
+		String access_Token = memberService.getAccessToken(code);
+		
+		System.out.println("###access_Token#### : " + access_Token);
+		
+		MemberVO result = memberService.getUserInfo(access_Token);
+		
+		//System.out.println("###id#### : " + result.getMember_email());
+		//System.out.println("###email#### : " + result.getMember_email());
+		//System.out.println("###nickname#### : " + result.getMember_nickname());
+		//System.out.println("###img#### : " + result.getMember_img());
+		//System.out.println("###gender#### : " + result.getMember_gender());
+		
+		if(result.getMember_gender().equals("female")){
+			result.setMember_gender("F");
+		}else if(result.getMember_gender().equals("male")) {
+			result.setMember_gender("M");
+		}else {
+			result.setMember_gender("U");
+		}
+		
+		//이메일이 있는지 확인하고
+		int emailCheck = dao.emailCheck(result.getMember_email());
+		
+		MemberVO result2 = null;
+		if(emailCheck != 1) {
+			result2 = dao.createK(result);
+			//세션잡기 jsp에서 ${sessionScope.member_no} 이런 형식으로 사용할 수 있다.
+			session.setAttribute("member_no", result2.getMember_no());
+			session.setAttribute("member_nickname", result2.getMember_nickname());
+			return "../../main/home";
+		}else {
+			result2 = dao.kakaoEmailCheck(result.getMember_email());
+			//세션잡기 jsp에서 ${sessionScope.member_no} 이런 형식으로 사용할 수 있다.
+			session.setAttribute("member_no", result2.getMember_no());
+			session.setAttribute("member_nickname", result2.getMember_nickname());
+			return "../../main/home";
+		}
+		
 	}
-
+	
 	
 	//email 중복 체크
 	@RequestMapping(value = "member/emailCheck", method = RequestMethod.POST)
@@ -142,7 +225,7 @@ public class MemberController {
 		}else {
 			if (file != null && !file.isEmpty()) {
 				String member_img = file.getOriginalFilename();
-				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/profile");
+				String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/member");
 				File directory = new File(uploadPath);
 				if (!directory.exists()) {
 					directory.mkdirs();
@@ -187,39 +270,9 @@ public class MemberController {
 		session.invalidate();
 		
 		 return "redirect:/member/login.jsp";
-	 }
+	 }	 
 	 
-
-	/*
-	 * @RequestMapping("delete") 
-	 * public void delete(String id) {
-	 * 		System.out.println(id); 
-	 * 		dao.delete(id); 
-	 * }
-	 * 
-	 * @RequestMapping("update") 
-	 * public void update(MemberVO bag) {
-	 * 		System.out.println(bag); 
-	 * 		dao.update(bag); 
-	 * }
-	 * 
-	 * @RequestMapping("one") 
-	 * public void one(String id, Model model) {
-	 * 		System.out.println(id); 
-	 * 		MemberVO vo = dao.one(id); // vo받아서 vo에 넣어둠. 
-	 * 		// views까지 전달할 데이터를 model객체를 이용해서 속성으로 지정해주세요. 
-	 * 		model.addAttribute("vo", vo); //속성으로 지정 
-	 * }
-	 * 
-	 * @RequestMapping("list") 
-	 * public void list(Model model) { 
-	 * 		List<MemberVO> list = dao.list(); 
-	 * 		model.addAttribute("list", list);
-	 * }
-	 */
-	 
-	 
-	 //전화번호 인증
+	 //전화번호 인증번호 보내기
 	 @PostMapping("member/phoneAuth")
 	 @ResponseBody
 	 public Boolean phoneAuth(String tel, HttpSession session) {
@@ -232,12 +285,13 @@ public class MemberController {
 	         e.printStackTrace();
 	     }
 	     
-	     String code = memberService.sendRandomMessage(tel);
+	     String code = memberService.sendRandomMessage(member_tel);
 	     session.setAttribute("rand", code);
 	     
 	     return true;
 	 }
-
+	 
+	//전화번호 인증번호 확인하기
 	 @PostMapping("member/phoneAuthOk")
 	 @ResponseBody
 	 public Boolean phoneAuthOk(HttpSession session, HttpServletRequest request) {
@@ -254,7 +308,111 @@ public class MemberController {
 	     return false;
 	 }
 	 
-	 
-	 
+	 //myActivity.jsp의 시작하자마자 갯수가져오기
+	 @PostMapping("member/load")
+	 @ResponseBody
+	 public Map<String, Integer> load(@RequestParam("member_no") String member_no) {
+	   Map<String, Integer> result = new HashMap<String, Integer>();
+	   int count_post = dao.count_post(member_no);
+	   int count_reply = dao.count_reply(member_no);
+	   int count_bookmark = dao.count_bookmark(member_no);
+	   int count_get_heart = dao.count_get_heart(member_no);
 
+	   result.put("count_post", count_post);
+	   result.put("count_reply", count_reply);
+	   result.put("count_bookmark", count_bookmark);
+	   result.put("count_get_heart", count_get_heart);
+
+	   return result;
+	 }
+	 
+	 // 게시글 목록 가져오기
+	 @PostMapping("member/my_post")
+	 public void my_post(@RequestParam("member_no") String member_no, Model model) {
+		 List<MemberPostVO> postList = dao.postList(member_no);
+		 //System.out.println("사이즈: " + postList.size()); //사이즈를 찍어보세요.
+		 model.addAttribute("postList", postList);
+	 }
+	 
+	//게시물 삭제
+	@RequestMapping("member/del_bbs")
+	public String del_bbs(String bbs_no) {
+	    dao.del_bbs(bbs_no);
+	    return "forward:/member/myActivity.jsp";
+	}
+	 
+	 // 댓글 목록 가져오기
+	 @PostMapping("member/my_reply")
+	 public void my_reply(@RequestParam("member_no") String member_no, Model model) {
+		 List<MemberReplyVO> replyList = dao.replyList(member_no);
+		 //System.out.println("사이즈: " + replyList.size()); //사이즈를 찍어보세요.
+		 model.addAttribute("replyList", replyList);
+	 }
+	 
+	// 댓글 삭제
+	@RequestMapping("member/del_reply")
+	public String del_reply(String reply_no) {
+	    dao.del_reply(reply_no);
+	    return "forward:/member/myActivity.jsp";
+	}
+	
+	 // 북마크 목록 가져오기
+	 @PostMapping("member/my_bookmark")
+	 public void my_bookmark(@RequestParam("member_no") String member_no, Model model) {
+		 List<MemberBookmarkVO> bookmarkList = dao.bookmarkList(member_no);
+		 System.out.println("사이즈: " + bookmarkList.size()); //사이즈를 찍어보세요.
+		 model.addAttribute("bookmarkList", bookmarkList);
+	 }
+	 
+	// 북마크 삭제
+	@RequestMapping("member/del_bookmark")
+	public String del_bookmark(String bookmark_no) {
+	    dao.del_bookmark(bookmark_no);
+	    return "forward:/member/myActivity.jsp";
+	}
+	
+	//myActivity.jsp의 시작하자마자 갯수가져오기
+	@PostMapping("member/count_follow")
+	@ResponseBody
+	public Map<String, Integer> count_follow(@RequestParam("member_no") String member_no) {
+	  Map<String, Integer> result = new HashMap<String, Integer>();
+	  int count_follower = dao.count_follower(member_no); //follower: 나를 팔로우 한 사람
+	  int count_following = dao.count_following(member_no); //following: 내가 팔로우 한 사람
+	
+	  result.put("count_follower", count_follower);
+	  result.put("count_following", count_following);
+	
+	  return result;
+	}
+	
+	 // follower 목록 가져오기
+	 @PostMapping("member/follower")
+	 public void follower(@RequestParam("member_no") String member_no, Model model) {
+		 List<MemberFollowVO> followerList = dao.followerList(member_no);
+		 //System.out.println("사이즈: " + followerList.size()); //사이즈를 찍어보세요.
+		 model.addAttribute("followerList", followerList);
+	 }
+	 
+	 // following 목록 가져오기
+	 @PostMapping("member/following")
+	 public void following(@RequestParam("member_no") String member_no, Model model) {
+		 List<MemberFollowVO> followingList = dao.followingList(member_no);
+		 //System.out.println("사이즈: " + followingList.size()); //사이즈를 찍어보세요.
+		 model.addAttribute("followingList", followingList);
+	 }
+	 
+	// follower 삭제
+	@RequestMapping("member/del_follower")
+	public String del_follower(String follow_no) {
+	    dao.del_follower(follow_no);
+	    return "forward:/member/myFollow.jsp";
+	}
+	
+	// following 삭제
+	@RequestMapping("member/del_following")
+	public String del_following(String follow_no) {
+		dao.del_following(follow_no);
+		return "forward:/member/myFollow.jsp";
+	}
+	 
 }

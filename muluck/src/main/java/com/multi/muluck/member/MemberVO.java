@@ -11,7 +11,7 @@ public class MemberVO {
 	private String member_nickname;
 	private String member_img;
 	private String member_gender;
-	private String member_ageRange;
+	private String member_birthyear;
 	private int member_manager;
 	
 	public int getMember_no() {
@@ -68,26 +68,25 @@ public class MemberVO {
 	public void setMember_gender(String member_gender) {
 		this.member_gender = member_gender;
 	}
-	public String getMember_ageRange() {
-		return member_ageRange;
+	public String getMember_birthyear() {
+		return member_birthyear;
 	}
-	public void setMember_ageRange(String member_ageRange) {
-		this.member_ageRange = member_ageRange;
+	public void setMember_birthyear(String member_birthyear) {
+		this.member_birthyear = member_birthyear;
 	}
-	
-	
 	public int getMember_manager() {
 		return member_manager;
 	}
 	public void setMember_manager(int member_manager) {
 		this.member_manager = member_manager;
 	}
+	
 	@Override
 	public String toString() {
 		return "MemberVO [member_no=" + member_no + ", member_id=" + member_id + ", member_pw=" + member_pw
 				+ ", member_email=" + member_email + ", member_name=" + member_name + ", member_tel=" + member_tel
 				+ ", member_nickname=" + member_nickname + ", member_img=" + member_img + ", member_gender="
-				+ member_gender + ", member_ageRange=" + member_ageRange + ", member_manager=" + member_manager + "]";
+				+ member_gender + ", member_birthyear=" + member_birthyear + ", member_manager=" + member_manager + "]";
 	}
 
 
