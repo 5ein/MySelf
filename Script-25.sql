@@ -1,6 +1,6 @@
 alter table member  auto_increment= 1;
 
-
+SELECT * FROM `member` m  ORDER BY member_no  ASC;
 
 -- bbs테이블에서 member_no가 3인 bbs_no 들을 가져와서 
 -- heart 테이블에서 bbs_no가 받아온 bbs_no들과 같은 칼럼의 수들의 합을 구하는 쿼리
@@ -42,7 +42,7 @@ JOIN bbs b ON r.bbs_no = b.bbs_no
 WHERE r.member_no = 1;
 
 -- bookmark 북마크 리스트 가져오기
-SELECT ROW_NUMBER() OVER (ORDER BY bbs.bbs_no) AS my_bookmark, bbs.bbs_title, community.community_category
+SELECT ROW_NUMBER() OVER (ORDER BY bbs.bbs_no) AS my_bookmark, bookmark.bookmark_no, bookmark.bbs_no, bbs.bbs_title, community.community_no, community.community_category
 FROM bookmark
 JOIN bbs ON bookmark.bbs_no = bbs.bbs_no
 JOIN community ON bbs.community_no = community.community_no
